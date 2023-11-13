@@ -4,7 +4,7 @@ const port = 4110;
 const cors = require("cors");
 const bodyparcer = require("body-parser");
 require("./utils/db");
-const userRouter = require("./routes/authenticationRoutes/userRoutes");
+const userRouter = require("./routes/userRoutes");
 
 // get fun has two arguments first is end point then call back (no need to call. Called automatically)function
 app.get("/", (req, res) => {
