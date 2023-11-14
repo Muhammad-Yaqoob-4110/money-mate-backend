@@ -1,13 +1,23 @@
 const Groups = require("../models/groupModel");
 const User = require("../models/userModel");
 
+async function getAllGroups(req, res) {
+  try {
+    const { email } = req.params;
+    const groups = await Groups.find({ members: email }).exec();
+    res.status(200).json({ message: "All Groups", groups });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error fetching groups" });
+  }
+}
 async function createGroup(req, res) {
   try {
-    const { name } = req.body;
+    const { name, creator } = req.body;
 
     const newGroup = new Groups({
       name,
-      members: [],
+      members: [creator],
       expenses: [],
     });
 
@@ -110,4 +120,5 @@ module.exports = {
   createGroup,
   addMembers,
   addExpences,
+  getAllGroups,
 };
